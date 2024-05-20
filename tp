@@ -1,10 +1,31 @@
-mouse = game.Players.LocalPlayer:GetMouse()
-tool = Instance.new("Tool")
+local toolEquipped = false
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+
+local tool = Instance.new("Tool")
 tool.RequiresHandle = false
 tool.Name = "Click Teleport"
-tool.Activated:connect(function()
-local pos = mouse.Hit+Vector3.new(0,2.5,0)
-pos = CFrame.new(pos.X,pos.Y,pos.Z)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = pos
+tool.Activated:Connect(function()
+    local pos = mouse.Hit + Vector3.new(0, 2.5, 0)
+    pos = CFrame.new(pos.X, pos.Y, pos.Z)
+    player.Character.HumanoidRootPart.CFrame = pos
 end)
-tool.Parent = game.Players.LocalPlayer.Backpack
+tool.Parent = player.Backpack
+
+tool.Activated:Connect(function()
+    if toolEquipped == false then
+        tool.Parent = player.Backpack
+        toolEquipped = true
+    else
+        tool.Parent = nil
+        toolEquipped = false
+    end
+end)
+
+mouse.Button1Down:Connect(function()
+    if toolEquipped == true then
+        local pos = mouse.Hit + Vector3.new(0, 2.5, 0)
+        pos = CFrame.new(pos.X, pos.Y, pos.Z)
+        player.Character.HumanoidRootPart.CFrame = pos
+    end
+end)
