@@ -1,3 +1,4 @@
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Race.Rings.Ring.Position)
+local targetPosition = Vector3.new(-5772.19, 2030.88, -15156.8)
+    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
 wait(1.75)
 game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Race.FinishLines.Finish.Position)
