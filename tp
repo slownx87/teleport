@@ -1,4 +1,20 @@
-local targetPosition = Vector3.new(-6046.39, 2026.92, -10755.8)
-    game.Players.LocalPlayer.Character:SetPrimaryPartCFrame(CFrame.new(targetPosition))
-wait(2.25)
-game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Race.FinishLines.Finish.Position)
+minetest.register_globalstep(function(dtime)
+    local players = minetest.get_connected_players()
+    local closest_dist = math.huge
+    local closest_player = nil
+    local camera = minetest.localplayer:get_pos()
+
+    for _, player in ipairs(players) do
+        local player_pos = player:get_pos()
+        local dist = vector.distance(player_pos, camera)
+        
+        if dist < closest_dist then
+            closest_dist = dist
+            closest_player = player
+        end
+    end
+
+    if closest_player then
+        minetest.localplayer:set_pos(closest_player:get_pos())
+    end
+end)
